@@ -1,0 +1,31 @@
+{
+  "name": "bus-carpark",
+  "version": "1.0.0",
+  "description": "Bus in Carpark Simulator",
+  "main": "src/index.js",
+  "repository": "git@github.com:TedChenNZ/bus-carpark.git",
+  "author": "Ted Chen <tedchennz@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "test": "jest",
+    "lint": "eslint src/*",
+    "start": "webpack --mode development && node dist/main.js",
+    "build": "webpack --mode production"
+  },
+  "devDependencies": {
+    "@babel/core": "7.0.0-beta.40",
+    "@babel/preset-env": "7.0.0-beta.40",
+    "babel-core": "^7.0.0-0",
+    "babel-jest": "22.1.0",
+    "babel-loader": "8.0.0-beta.0",
+    "eslint": "4.15.0",
+    "eslint-config-airbnb": "16.1.0",
+    "eslint-plugin-import": "2.9.0",
+    "eslint-plugin-jsx-a11y": "6.0.3",
+    "eslint-plugin-react": "7.7.0",
+    "jest": "22.1.2",
+    "webpack": "4.0.1",
+    "webpack-cli": "2.0.4"
+  }
+}

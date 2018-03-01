@@ -27,5 +27,8 @@
     "jest": "22.1.2",
     "webpack": "4.0.1",
     "webpack-cli": "2.0.4"
+  },
+  "dependencies": {
+    "ramda": "0.25.0"
   }
 }

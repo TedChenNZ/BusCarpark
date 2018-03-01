@@ -70,5 +70,3 @@ export function changeDirection(bus, direction) {
 export function report(bus) {
   console.log(`${bus.x},${bus.y},${bus.f}`);
 }
-
-export default parseInput;

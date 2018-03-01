@@ -9,6 +9,9 @@ export const COMMANDS = {
   REPORT: 'REPORT',
 };
 
+export const MAX_X = 5;
+export const MAX_Y = 5;
+
 export function parseInput(input) {
   if (input && typeof input === 'string') {
     const cmd = input.split(' ')[0];
@@ -30,7 +33,6 @@ export function place(x, y, f) {
 }
 
 export function move(bus) {
-  // TODO: max x/y
   const newBus = clone(bus);
   switch (bus.f) {
     case CARDINAL.NORTH.name:
@@ -47,6 +49,9 @@ export function move(bus) {
       break;
     default:
       break;
+  }
+  if (newBus.x < 0 || newBus.x > MAX_X || newBus.y < 0 || newBus.y > MAX_Y) {
+    return bus;
   }
   return newBus;
 }

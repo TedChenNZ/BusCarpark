@@ -1,4 +1,4 @@
-import { COMMANDS, parseInput, changeDirection, place, move } from '../';
+import { COMMANDS, parseInput, changeDirection, place, move, MAX_X, MAX_Y } from '../';
 
 describe('simulator', () => {
   describe('parseInput', () => {
@@ -91,6 +91,51 @@ describe('simulator', () => {
     it('should only change x from 1 to 0 if facing WEST', () => {
       const bus = {
         x: 1,
+        y: 4,
+        f: 'WEST',
+      };
+      const newBus = move(bus);
+      expect(newBus.x).toEqual(0);
+      expect(newBus.y).toEqual(4);
+      expect(newBus.f).toEqual('WEST');
+    });
+
+    it('should not move the bus if it meets constraints while facing NORTH', () => {
+      const bus = {
+        x: 1,
+        y: MAX_Y,
+        f: 'NORTH',
+      };
+      const newBus = move(bus);
+      expect(newBus.x).toEqual(1);
+      expect(newBus.y).toEqual(MAX_Y);
+      expect(newBus.f).toEqual('NORTH');
+    });
+    it('should not move the bus if it meets constraints while facing SOUTH', () => {
+      const bus = {
+        x: 1,
+        y: 0,
+        f: 'SOUTH',
+      };
+      const newBus = move(bus);
+      expect(newBus.x).toEqual(1);
+      expect(newBus.y).toEqual(0);
+      expect(newBus.f).toEqual('SOUTH');
+    });
+    it('should not move the bus if it meets constraints while facing EAST', () => {
+      const bus = {
+        x: MAX_X,
+        y: 4,
+        f: 'EAST',
+      };
+      const newBus = move(bus);
+      expect(newBus.x).toEqual(MAX_X);
+      expect(newBus.y).toEqual(4);
+      expect(newBus.f).toEqual('EAST');
+    });
+    it('should not move the bus if it meets constraints while facing WEST', () => {
+      const bus = {
+        x: 0,
         y: 4,
         f: 'WEST',
       };

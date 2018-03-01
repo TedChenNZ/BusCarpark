@@ -1,4 +1,4 @@
-import { COMMANDS, parseInput, changeDirection, place } from '../';
+import { COMMANDS, parseInput, changeDirection, place, move } from '../';
 
 describe('simulator', () => {
   describe('parseInput', () => {
@@ -45,10 +45,59 @@ describe('simulator', () => {
   });
 
   describe('place', () => {
-    expect(place(3, 2, 'SOUTH')).toEqual({
-      x: 3,
-      y: 2,
-      f: 'SOUTH',
+    it('should return a bus object the x y f fields', () => {
+      expect(place(3, 2, 'SOUTH')).toEqual({
+        x: 3,
+        y: 2,
+        f: 'SOUTH',
+      });
+    });
+  });
+
+  describe('move', () => {
+    it('should only change y from 3 to 4 if facing NORTH', () => {
+      const bus = {
+        x: 1,
+        y: 3,
+        f: 'NORTH',
+      };
+      const newBus = move(bus);
+      expect(newBus.x).toEqual(1);
+      expect(newBus.y).toEqual(4);
+      expect(newBus.f).toEqual('NORTH');
+    });
+    it('should only change y from 4 to 3 if facing SOUTH', () => {
+      const bus = {
+        x: 1,
+        y: 4,
+        f: 'SOUTH',
+      };
+      const newBus = move(bus);
+      expect(newBus.x).toEqual(1);
+      expect(newBus.y).toEqual(3);
+      expect(newBus.f).toEqual('SOUTH');
+    });
+    it('should only change x from 1 to 2 if facing EAST', () => {
+      const bus = {
+        x: 1,
+        y: 4,
+        f: 'EAST',
+      };
+      const newBus = move(bus);
+      expect(newBus.x).toEqual(2);
+      expect(newBus.y).toEqual(4);
+      expect(newBus.f).toEqual('EAST');
+    });
+    it('should only change x from 1 to 0 if facing WEST', () => {
+      const bus = {
+        x: 1,
+        y: 4,
+        f: 'WEST',
+      };
+      const newBus = move(bus);
+      expect(newBus.x).toEqual(0);
+      expect(newBus.y).toEqual(4);
+      expect(newBus.f).toEqual('WEST');
     });
   });
 });

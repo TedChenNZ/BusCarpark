@@ -1,5 +1,5 @@
 import { clone } from 'ramda';
-import { getCardinal } from './cardinal';
+import { CARDINAL, getCardinal } from './cardinal';
 
 export const COMMANDS = {
   PLACE: 'PLACE',
@@ -27,6 +27,28 @@ export function place(x, y, f) {
     y,
     f,
   };
+}
+
+export function move(bus) {
+  // TODO: max x/y
+  const newBus = clone(bus);
+  switch (bus.f) {
+    case CARDINAL.NORTH.name:
+      newBus.y = bus.y + 1;
+      break;
+    case CARDINAL.SOUTH.name:
+      newBus.y = bus.y - 1;
+      break;
+    case CARDINAL.EAST.name:
+      newBus.x = bus.x + 1;
+      break;
+    case CARDINAL.WEST.name:
+      newBus.x = bus.x - 1;
+      break;
+    default:
+      break;
+  }
+  return newBus;
 }
 
 export function changeDirection(bus, direction) {

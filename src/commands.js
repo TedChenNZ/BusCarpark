@@ -1,7 +1,7 @@
 import { place, left, right, move } from './bus/actions';
 import { report } from './bus';
 
-const COMMANDS = {
+export const COMMANDS = {
   PLACE: (store, words) => {
     if (words.length === 1) {
       const opt = words[0];
@@ -39,4 +39,22 @@ const COMMANDS = {
   },
 };
 
-export default COMMANDS;
+
+export default function parseCommand(store, command) {
+  const words = command.split(' ');
+  let action = '';
+  if (words.length > 1) {
+    action = words.shift();
+  } else {
+    [action] = words;
+  }
+  if (COMMANDS[action]) {
+    try {
+      COMMANDS[action](store, words);
+    } catch (e) {
+      console.error(e);
+    }
+  } else {
+    console.log('Invalid command');
+  }
+}

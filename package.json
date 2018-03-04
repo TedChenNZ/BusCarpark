@@ -9,7 +9,7 @@
   "private": false,
   "scripts": {
     "lint": "eslint src/*",
-    "test": "react-scripts test",
+    "test": "react-scripts test --env=jsdom",
     "start:react": "react-scripts start",
     "start:node": "webpack --config webpack.config.node.js --mode development && node dist/main.js",
     "build:node": "webpack --config webpack.config.node.js --mode development",
@@ -29,7 +29,6 @@
     "eslint-plugin-import": "2.9.0",
     "eslint-plugin-jsx-a11y": "6.0.3",
     "eslint-plugin-react": "7.7.0",
-    "jest": "22.1.2",
     "jest-enzyme": "4.2.0",
     "react-test-renderer": "16.2.0",
     "webpack": "4.0.1",

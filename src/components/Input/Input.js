@@ -18,7 +18,7 @@ const styles = theme => ({
   },
 });
 
-class Input extends Component {
+export class Input extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -91,7 +91,7 @@ class Input extends Component {
           id="input"
           value={this.state.input}
           onChange={this.handleChange}
-          className={classes.textField}
+          className={classes ? classes.textField : ''}
           error={!!this.state.error}
           helperText={this.state.error}
         />
@@ -112,6 +112,11 @@ Input.propTypes = {
   right: PropTypes.func.isRequired,
   move: PropTypes.func.isRequired,
   place: PropTypes.func.isRequired,
+  bus: PropTypes.object,
+}
+
+Input.defaultProps = {
+  bus: {},
 }
 
 export default withStyles(styles)(Input);

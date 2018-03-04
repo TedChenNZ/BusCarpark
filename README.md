@@ -2,20 +2,51 @@
 
 ## Installation
 
-Have node  https://nodejs.org/en/) and yarn (https://yarnpkg.com/en/) installed
+Have node  https://nodejs.org/en/) and yarn (https://yarnpkg.com/en/) installed.
 
-
-## Running
+Install dependencies by running:
 
 ```
-yarn run start
+yarn install
 ```
 
-## Build
 
-run `yarn run build` which should result in a build file in dist/main.js
+## Node (command line version)
 
-## Test
+### Running
+
+```
+yarn run start:node
+```
+
+### Build
+
+Run `yarn run build:node` which should result in a build file in dist/main.js
+
+To run the built file `node dist/main.js`
+
+### Test
+
+```
+yarn run test
+```
+
+
+## React (React version)
+
+### Running
+
+```
+yarn run start:react
+```
+
+### Build
+
+Run `yarn run build:react` which should result in a build files in build/
+
+Follow the instructions given by the command on how to serve the project.
+
+### Test
 
 ```
 yarn run test

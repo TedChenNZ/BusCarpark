@@ -1,37 +1,59 @@
 import { place, left, right, move } from './bus/actions';
 import { report, validateXYF } from './bus';
 
+export function parsePlaceWords(input) {
+  const words = input.split(' ');
+  if (words.length === 2) {
+    const opt = words[1];
+    const props = opt.split(',');
+    if (props.length === 3) {
+      const x = parseInt(props[0], 10);
+      const y = parseInt(props[1], 10);
+      const f = props[2];
+      validateXYF(x, y, f);
+      console.log(f);
+      return {x, y, f};
+    }
+  }
+  throw new Error('Invalid place options');
+}
+
 export const COMMANDS = {
-  PLACE: (store, words) => {
-    if (words.length === 1) {
-      const opt = words[0];
-      const props = opt.split(',');
-      if (props.length === 3) {
-        const x = parseInt(props[0], 10);
-        const y = parseInt(props[1], 10);
-        const f = props[2];
-        validateXYF(x, y, f);
-        store.dispatch(place(x, y, f));
-      }
+  PLACE: {
+    name: 'PLACE',
+    func: (store, words) => {
+      const { x, y, f } = parsePlaceWords(words);
+      store.dispatch(place(x, y, f));
+    },
+  },
+  MOVE: {
+    name: 'MOVE',
+    func: (store) => {
+      store.dispatch(move());
     }
   },
-  MOVE: (store) => {
-    store.dispatch(move());
+  LEFT: {
+    name: 'LEFT',
+    func: (store) => {
+      store.dispatch(left());
+    }
   },
-  LEFT: (store) => {
-    store.dispatch(left());
+  RIGHT: {
+    name: 'RIGHT',
+    func: (store) => {
+      store.dispatch(right());
+    }
   },
-  RIGHT: (store) => {
-    store.dispatch(right());
-  },
-  REPORT: (store) => {
-    const { bus } = store.getState();
-    report(bus);
+  REPORT: {
+    name: 'REPORT',
+    func: (store) => {
+      const { bus } = store.getState();
+      report(bus);
+    }
   },
 };
 
-
-export default function parseCommand(store, command) {
+export function getCommand(command) {
   const words = command.split(' ');
   let action = '';
   if (words.length > 1) {
@@ -40,12 +62,18 @@ export default function parseCommand(store, command) {
     [action] = words;
   }
   if (COMMANDS[action]) {
-    try {
-      COMMANDS[action](store, words);
-    } catch (e) {
-      console.error(e.message);
+    return COMMANDS[action];
+  }
+  throw new Error('Invalid command');
+}
+
+export default function parseCommand(store, words) {
+  try {
+    const command = getCommand(words);
+    if (command) {
+      command.func(store, words);
     }
-  } else {
-    console.error('Invalid command');
+  } catch (e) {
+    console.error(e.message);
   }
 }

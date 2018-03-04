@@ -1,13 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { isEmpty } from 'ramda';
 
 const Carpark = ({ bus }) => {
-  console.log(bus);
-  return (
-  <div>
-    {bus.x}
-  </div>
-)
+  if (!isEmpty(bus)) {
+    return (
+      <div>
+        {bus.x},{bus.y},{bus.f}
+      </div>
+    )
+  }
+  return null;
 };
 
 Carpark.propTypes = {

@@ -1,8 +1,10 @@
-import React, { Component } from 'react';
-import CarparkContainer from './Carpark/CarparkContainer';
+import React from 'react';
+import CarparkContainer from './Carpark';
+import Input from './Input';
 
 const App = ({ bus }) => (
   <div>
+    <Input />
     <CarparkContainer />
   </div>
 );

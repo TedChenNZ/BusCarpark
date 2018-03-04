@@ -54,16 +54,14 @@ class Input extends Component {
             this.setState({
               openDialog: true,
             })
-            console.log(this.props.bus);
           }
           break;
         default:
           break;
       }
     } catch (e) {
-      console.error(e);
       this.setState({
-        error: e,
+        error: e.message,
       });
     }
     this.setState({
@@ -94,6 +92,8 @@ class Input extends Component {
           value={this.state.input}
           onChange={this.handleChange}
           className={classes.textField}
+          error={!!this.state.error}
+          helperText={this.state.error}
         />
         <ReportDialog
           open={this.state.openDialog}

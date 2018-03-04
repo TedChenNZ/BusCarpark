@@ -1,12 +1,15 @@
-import { clone } from 'ramda';
+import { clone, isEmpty } from 'ramda';
 import { CARDINAL, getCardinal } from './cardinal';
 
+export const MIN_X = 0;
 export const MAX_X = 5;
+
+export const MIN_Y = 0;
 export const MAX_Y = 5;
 
-function validBus(bus) {
-  if (bus.x < 0 || bus.x > MAX_X ||
-    bus.y < 0 || bus.y > MAX_Y ||
+export function validBus(bus) {
+  if (bus.x < MIN_X || bus.x > MAX_X ||
+    bus.y < MIN_Y || bus.y > MAX_Y ||
     getCardinal(bus.f) === undefined) {
     return false;
   }
@@ -62,6 +65,8 @@ export function right(bus) {
 }
 
 export function report(bus) {
-  console.log(`${bus.x},${bus.y},${bus.f}`);
+  if (!isEmpty(bus)) {
+    console.log(`${bus.x},${bus.y},${bus.f}`);
+  }
   return bus;
 }

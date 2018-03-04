@@ -1,4 +1,4 @@
-import { place, move, MAX_X, MAX_Y, left, right, report } from '../';
+import { place, move, MIN_X, MIN_Y, MAX_X, MAX_Y, left, right, report } from '../';
 
 describe('simulator', () => {
   describe('left', () => {
@@ -126,7 +126,7 @@ describe('simulator', () => {
     it('should not move the bus if it meets constraints while facing SOUTH', () => {
       const bus = {
         x: 1,
-        y: 0,
+        y: MIN_Y,
         f: 'SOUTH',
       };
       const newBus = move(bus);
@@ -147,7 +147,7 @@ describe('simulator', () => {
     });
     it('should not move the bus if it meets constraints while facing WEST', () => {
       const bus = {
-        x: 0,
+        x: MIN_X,
         y: 4,
         f: 'WEST',
       };

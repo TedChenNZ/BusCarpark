@@ -1,9 +1,8 @@
 import es from 'event-stream';
-import { createStore } from 'redux';
+import createStore from './store';
 import parseCommand from './commands';
-import reducer from './reducers';
 
-const store = createStore(reducer);
+const store = createStore();
 
 function parse(command) {
   parseCommand(store, command);

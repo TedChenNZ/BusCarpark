@@ -1,6 +1,6 @@
-import { createStore } from 'redux';
+import { isEmpty } from 'ramda';
+import createStore from '../store';
 import parseCommand from '../commands';
-import reducer from '../reducers';
 
 function runCommands(store, commands) {
   commands.forEach((cmd) => {
@@ -13,7 +13,7 @@ describe('commands', () => {
   let store;
   beforeEach(() => {
     spy = jest.spyOn(global.console, 'log');
-    store = createStore(reducer);
+    store = createStore();
   });
   afterEach(() => {
     spy.mockRestore();
@@ -75,5 +75,35 @@ describe('commands', () => {
       expect(spy.mock.calls[3]).toEqual(['5,5,EAST']);
       expect(spy.mock.calls[4]).toEqual(['5,5,EAST']);
     });
+  });
+
+  it('should ignore invalid directions', () => {
+    runCommands(store, ['PLACE 0,0,testing']);
+    const { bus } = store.getState();
+    expect(isEmpty(bus)).toEqual(true);
+  });
+
+  it('should ignore all inputs until a valid place', () => {
+    runCommands(store, [
+      'MOVE',
+      'PLACE 0,0,testing',
+      'LEFT',
+      'RIGHT',
+      'bogus',
+      'REPORT',
+    ]);
+    expect(isEmpty(store.getState().bus)).toEqual(true);
+    expect(spy).not.toHaveBeenCalled();
+    runCommands(store, [
+      'PLACE 3,2,NORTH',
+      'REPORT',
+    ]);
+    expect(store.getState().bus).toEqual({
+      x: 3,
+      y: 2,
+      f: 'NORTH',
+    });
+    expect(spy).toHaveBeenCalled();
+    expect(spy.mock.calls[0]).toEqual(['3,2,NORTH']);
   });
 });

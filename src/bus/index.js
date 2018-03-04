@@ -7,13 +7,32 @@ export const MAX_X = 5;
 export const MIN_Y = 0;
 export const MAX_Y = 5;
 
+export function validateXYF(x, y, f) {
+  if (Number.isNaN(x)) {
+    throw new Error('x value needs to be a number');
+  }
+  if (x < MIN_X || x > MAX_X) {
+    throw new Error(`x must be betewen ${MIN_X} and ${MAX_X}`);
+  }
+  if (Number.isNaN(y)) {
+    throw new Error('y value needs to be a number');
+  }
+  if (y < MIN_Y || y > MAX_Y) {
+    throw new Error(`y must be betewen ${MIN_Y} and ${MAX_Y}`);
+  }
+  if (getCardinal(f) === undefined) {
+    throw new Error(`direction needs to be one of: ${Object.keys(CARDINAL)}`);
+  }
+}
+
+
 export function validBus(bus) {
-  if (bus.x < MIN_X || bus.x > MAX_X ||
-    bus.y < MIN_Y || bus.y > MAX_Y ||
-    getCardinal(bus.f) === undefined) {
+  try {
+    validateXYF(bus.x, bus.y, bus.f);
+    return true;
+  } catch (e) {
     return false;
   }
-  return true;
 }
 
 export function place(bus, x, y, f) {

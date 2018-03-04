@@ -21,7 +21,7 @@ export function validateXYF(x, y, f) {
     throw new Error(`y must be betewen ${MIN_Y} and ${MAX_Y}`);
   }
   if (getCardinal(f) === undefined) {
-    throw new Error(`direction needs to be one of: ${Object.keys(CARDINAL)}`);
+    throw new Error(`Direction needs to be one of: ${Object.keys(CARDINAL)}`);
   }
 }
 

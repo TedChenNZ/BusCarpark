@@ -1,5 +1,6 @@
 module.exports = {
   target: 'node',
+  entry: './src/node.js',
   module: {
     rules: [
       {
@@ -12,4 +13,3 @@ module.exports = {
     ],
   },
 };
-

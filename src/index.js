@@ -1,14 +1,17 @@
-import es from 'event-stream';
-import createStore from './store';
-import parseCommand from './commands';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import App from './components/App';
+import registerServiceWorker from './registerServiceWorker';
+
+import createStore from './services/store';
 
 const store = createStore();
 
-function parse(command) {
-  parseCommand(store, command);
-}
-
-console.log('Please input a command...');
-process.stdin
-  .pipe(es.split())
-  .on('data', parse);
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root'),
+);
+registerServiceWorker();

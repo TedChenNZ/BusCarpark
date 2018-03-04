@@ -2,7 +2,7 @@
     "env": {
         "jest": true
     },
-    "extends": "airbnb",
+    "extends": "react-app",
     "rules": {
         "no-console": 0
     }

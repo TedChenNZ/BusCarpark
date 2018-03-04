@@ -1,9 +1,10 @@
 import React from 'react';
 import CarparkContainer from './Carpark';
 import Input from './Input';
+import './App.css';
 
 const App = ({ bus }) => (
-  <div>
+  <div className='app'>
     <Input />
     <CarparkContainer />
   </div>

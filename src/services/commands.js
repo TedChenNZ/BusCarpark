@@ -11,7 +11,6 @@ export function parsePlaceWords(input) {
       const y = parseInt(props[1], 10);
       const f = props[2];
       validateXYF(x, y, f);
-      console.log(f);
       return {x, y, f};
     }
   }

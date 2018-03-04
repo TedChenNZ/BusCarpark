@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { isEmpty } from 'ramda';
 import { withStyles } from 'material-ui/styles';
 import TextField from 'material-ui/TextField';
 import { COMMANDS, parsePlaceWords, getCommand } from '../../services/commands';
+import ReportDialog from './ReportDialog';
 
 const styles = theme => ({
   container: {
@@ -22,9 +24,11 @@ class Input extends Component {
     this.state = {
       input: '',
       error: '',
+      openDialog: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleDialogClose = this.handleDialogClose.bind(this);
   }
   handleSubmit(e) {
     e.preventDefault();
@@ -46,7 +50,12 @@ class Input extends Component {
           this.props.place(x, y, f);
           break;
         case COMMANDS.REPORT.name:
-          console.log(this.props.bus);
+          if (!isEmpty(this.props.bus)) {
+            this.setState({
+              openDialog: true,
+            })
+            console.log(this.props.bus);
+          }
           break;
         default:
           break;
@@ -61,10 +70,17 @@ class Input extends Component {
       input: '',
     });
   }
+
   handleChange(e) {
     this.setState({
       input: e.target.value,
       error: '',
+    })
+  }
+
+  handleDialogClose() {
+    this.setState({
+      openDialog: false,
     })
   }
 
@@ -78,6 +94,13 @@ class Input extends Component {
           value={this.state.input}
           onChange={this.handleChange}
           className={classes.textField}
+        />
+        <ReportDialog
+          open={this.state.openDialog}
+          onClose={this.handleDialogClose}
+          x={this.props.bus.x}
+          y={this.props.bus.y}
+          f={this.props.bus.f}
         />
       </form>
     )

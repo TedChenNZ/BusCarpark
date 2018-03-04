@@ -1,4 +1,4 @@
-import { place, move, MAX_X, MAX_Y, left, right } from '../';
+import { place, move, MAX_X, MAX_Y, left, right, report } from '../';
 
 describe('simulator', () => {
   describe('left', () => {
@@ -31,11 +31,38 @@ describe('simulator', () => {
 
   describe('place', () => {
     it('should return a bus object the x y f fields', () => {
-      expect(place(3, 2, 'SOUTH')).toEqual({
+      const bus = {};
+      expect(place(bus, 3, 2, 'SOUTH')).toEqual({
         x: 3,
         y: 2,
         f: 'SOUTH',
       });
+    });
+    it('should return the original bus if outside of carpark', () => {
+      const bus = {
+        x: 2,
+        y: 3,
+        f: 'EAST',
+      };
+      expect(place(bus, -100, 100, 'SOUTH')).toEqual({
+        x: 2,
+        y: 3,
+        f: 'EAST',
+      });
+    });
+  });
+
+  describe('report', () => {
+    it('should console.log the bus', () => {
+      const spy = jest.spyOn(global.console, 'log');
+      const bus = {
+        x: 4,
+        y: 2,
+        f: 'WEST',
+      };
+      report(bus);
+      expect(spy.mock.calls[0]).toEqual(['4,2,WEST']);
+      spy.mockRestore();
     });
   });
 

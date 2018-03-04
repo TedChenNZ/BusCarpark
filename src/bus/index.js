@@ -4,12 +4,25 @@ import { CARDINAL, getCardinal } from './cardinal';
 export const MAX_X = 5;
 export const MAX_Y = 5;
 
-export function place(x, y, f) {
-  return {
+function validBus(bus) {
+  if (bus.x < 0 || bus.x > MAX_X ||
+    bus.y < 0 || bus.y > MAX_Y ||
+    getCardinal(bus.f) === undefined) {
+    return false;
+  }
+  return true;
+}
+
+export function place(bus, x, y, f) {
+  const newBus = {
     x,
     y,
     f,
   };
+  if (validBus(newBus)) {
+    return newBus;
+  }
+  return bus;
 }
 
 export function move(bus) {
@@ -30,10 +43,10 @@ export function move(bus) {
     default:
       break;
   }
-  if (newBus.x < 0 || newBus.x > MAX_X || newBus.y < 0 || newBus.y > MAX_Y) {
-    return bus;
+  if (validBus(newBus)) {
+    return newBus;
   }
-  return newBus;
+  return bus;
 }
 
 export function left(bus) {

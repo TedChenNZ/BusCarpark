@@ -49,5 +49,31 @@ describe('commands', () => {
       expect(spy).toHaveBeenCalled();
       expect(spy.mock.calls[0]).toEqual(['3,3,NORTH']);
     });
+
+
+    it('should ignore commands which would cause the bus to exit the carpark', () => {
+      runCommands(store, [
+        'PLACE 0,0,WEST',
+        'MOVE',
+        'REPORT',
+        'LEFT',
+        'MOVE',
+        'REPORT',
+        'PLACE 5,5,NORTH',
+        'MOVE',
+        'MOVE',
+        'REPORT',
+        'RIGHT',
+        'MOVE',
+        'REPORT',
+        'PLACE 100,-100,EAST',
+        'REPORT',
+      ]);
+      expect(spy.mock.calls[0]).toEqual(['0,0,WEST']);
+      expect(spy.mock.calls[1]).toEqual(['0,0,SOUTH']);
+      expect(spy.mock.calls[2]).toEqual(['5,5,NORTH']);
+      expect(spy.mock.calls[3]).toEqual(['5,5,EAST']);
+      expect(spy.mock.calls[4]).toEqual(['5,5,EAST']);
+    });
   });
 });

@@ -5,6 +5,7 @@ import { withStyles } from 'material-ui/styles';
 import TextField from 'material-ui/TextField';
 import { COMMANDS, parsePlaceWords, getCommand } from '../../services/commands';
 import ReportDialog from './ReportDialog';
+import Button from 'material-ui/Button';
 
 const styles = theme => ({
   container: {
@@ -95,6 +96,9 @@ export class Input extends Component {
           error={!!this.state.error}
           helperText={this.state.error}
         />
+        <Button variant="raised" color="primary" onClick={this.handleSubmit}>
+          Submit
+        </Button>
         <ReportDialog
           open={this.state.openDialog}
           onClose={this.handleDialogClose}

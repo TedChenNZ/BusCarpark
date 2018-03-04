@@ -52,7 +52,8 @@ describe('Input', () => {
   });
   it('should show an error when incorrect text is submitted', () => {
     wrapper.find('input').simulate('change', { target: { value: 'anything' } });
-    wrapper.find('form').simulate('submit');
+    wrapper.find('button').simulate('click');
     expect(wrapper.html()).toContain('Invalid command');
+    expect(wrapper.state('error')).toEqual('Invalid command');
   });
 });
